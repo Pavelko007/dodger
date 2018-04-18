@@ -1,17 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
+using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
     public GameObject Enemy;
     private float nextSpawn;
-    public float spawnPeriod = .5f;
     private Vector3 lineBegin;
     private Vector3 lineEnd;
 
+    private Setttings settings;
+
+    [Inject]
+    public void Construct(Setttings settings)
+    {
+        this.settings = settings;
+    }
+
+    [Serializable]
+    public class Setttings
+    {
+        public float spawnPeriod = .5f;
+    }
+
     // Use this for initialization
-	void Start ()
+    void Start ()
 	{
 	    nextSpawn = Time.time;
 	    lineBegin = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0));
@@ -26,7 +42,7 @@ public class Spawner : MonoBehaviour
 	    if (Time.time > nextSpawn)
 	    {
 	        Instantiate(Enemy, Vector3.Lerp(lineBegin, lineEnd, Random.value), Quaternion.identity);
-            nextSpawn = Time.time + spawnPeriod;
+            nextSpawn = Time.time + settings.spawnPeriod;
 	    }
 	}
 }
