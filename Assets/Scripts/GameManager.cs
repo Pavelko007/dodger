@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public Text TopScore;
 
-    public GameObject GameOverText;
+    public GameObject GameOverPanel;
 
     public static GameManager Instance;
 
@@ -35,12 +35,17 @@ public class GameManager : MonoBehaviour
 	{
 	    if (gameOver && Input.GetKeyDown(KeyCode.R))
 	    {
-	        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-	        Time.timeScale = 1;
+	        RestartGame();
 	    }
 
 	    UpdateScore();
 	}
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     private void UpdateScore()
     {
@@ -56,7 +61,8 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true;
         Time.timeScale = 0;
-        GameOverText.SetActive(true);
+
+        GameOverPanel.SetActive(true);
        
 
         if (PlayerPrefs.HasKey(topScoreKey))
