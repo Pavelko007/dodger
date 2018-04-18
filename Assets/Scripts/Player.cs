@@ -13,20 +13,32 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-	    var hor = Input.GetAxis("Horizontal")  ;
-	    Vector3 moveDir;
-	    if (hor > 0)
+	    if (Input.GetMouseButton(0))
 	    {
-	        moveDir = Vector3.right;
-
+	        var clickPosWorld = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+	        transform.position = clickPosWorld;
 	    }
-        else if (hor < 0)
-	    {
-	        moveDir = Vector3.left;
-	    }
-	    else return; 
 
-	    transform.Translate(moveDir * speed * Time.deltaTime);
+	    //if (Input.touchCount > 0)
+	    //{
+	    //    Debug.Log("detected touch");
+	    //}
+     //   var hor = Input.GetAxis("Horizontal")  ;
+	    //Vector3 moveDir;
+	    //if (hor > 0)
+	    //{
+	    //    moveDir = Vector3.right;
+
+	    //}
+     //   else if (hor < 0)
+	    //{
+	    //    moveDir = Vector3.left;
+	    //}
+	    //else return; 
+
+	    //transform.Translate(moveDir * speed * Time.deltaTime);
+        
+
     }
 
     void OnCollisionEnter2D(Collision2D coll)
